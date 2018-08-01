@@ -1,0 +1,23 @@
+{
+    "scripts": {
+        "start": "concurrently \"webpack --watch\" 'lite-server'",
+        "test": "karma start",
+        "e2e": "protractor protractor.conf.js"
+    },
+    "dependencies": {
+        "angular": "^1.7.2",
+        "angular-route": "^1.7.2"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.5",
+        "babel-plugin-angularjs-annotate": "^0.9.0",
+        "babel-preset-es2015": "^6.24.1",
+        "concurrently": "^3.6.0",
+        "html-loader": "^0.5.5",
+        "less-loader": "^4.1.0",
+        "lite-server": "^2.4.0",
+        "sass-loader": "^7.0.3",
+        "webpack": "^2.0.7"
+    }
+}
