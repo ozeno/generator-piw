@@ -53,8 +53,8 @@ module.exports = class extends Generator {
 
     _copy() {
         this.fs.copyTpl(
-            this.templatePath('src/'),
-            this.destinationPath('src/'),
+            this.templatePath(''),
+            this.destinationPath(''),
             { message: 'Hello! from ', name: this.props.name, date: new Date().toISOString().slice(0, 10) }
         )
     }

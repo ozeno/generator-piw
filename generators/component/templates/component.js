@@ -1,10 +1,5 @@
 import view from './<%= name %>.template.html'
-
-class <%= name %>Ctrl {
-    constructor() {
-        "ngInject"
-    }
-}
+import <%= name %>Ctrl from './<%= name %>.controller'
 
 export default {
     template: view,

@@ -1,8 +1,8 @@
 {
     "scripts": {
-        "start": "concurrently \"webpack --watch\" 'lite-server'",
-        "test": "karma start",
-        "e2e": "protractor protractor.conf.js"
+        "start": "concurrently \"webpack --watch --config .config/webpack.config.js\" 'lite-server'",
+        "test": "karma start .config/karma.conf.js",
+        "e2e": "protractor .config/protractor.conf.js"
     },
     "dependencies": {
         "angular": "^1.7.2",

@@ -5,10 +5,10 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
-      'app/app.module.js',
-      'node_modules/angular-mocks/angular-mocks.js',
-      'tests/*spec.js',
-      'tests/**/*spec.js'
+      '../src/app/app.module.js',
+      '../node_modules/angular-mocks/angular-mocks.js',
+      '../test/unit/*spec.js',
+      '../test/unit/**/*spec.js'
     ],
     exclude: [
     ],
@@ -23,8 +23,9 @@ module.exports = function (config) {
 
     webpack: webpackConfig,
     preprocessors: {
-      'app/app.module.js': ['webpack', 'sourcemap'],
-      'tests/*spec.js': ['webpack', 'sourcemap']
+      '../src/app/app.module.js': ['webpack', 'sourcemap'],
+      '../test/unit/*spec.js': ['webpack', 'sourcemap'],
+      '../test/unit/**/*spec.js': ['webpack', 'sourcemap']
     },
   })
 }

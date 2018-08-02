@@ -23,13 +23,18 @@ module.exports = class extends Generator {
             "protractor"
         ]
 
-        this.npmInstall(deps, { 'save-dev': true }, { cwd: 'src' })
+        this.npmInstall(deps, { 'save-dev': true })
     }
 
     _copy() {
         this.fs.copyTpl(
             this.templatePath(''),
-            this.destinationPath('src/')
+            this.destinationPath('')
+        )
+
+        this.fs.copy(
+            this.templatePath('.config'),
+            this.destinationPath('.config')
         )
     }
 }

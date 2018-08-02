@@ -14,7 +14,7 @@ module.exports = class extends Generator {
     }
 
     install() {
-        this.npmInstall("@fortawesome/fontawesome-free", {}, { cwd: 'src' })
+        this.npmInstall("@fortawesome/fontawesome-free")
     }
 
     _addSimpleImport(toImport) {

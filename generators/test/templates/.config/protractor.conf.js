@@ -1,5 +1,5 @@
 exports.config = {
     framework: 'jasmine',
     seleniumAddress: 'http://localhost:4444/wd/hub',
-    specs: ['e2e/*spec.js', 'e2e/**/*spec.js']
+    specs: ['../test/e2e/*spec.js', '../test/e2e/**/*spec.js']
 }

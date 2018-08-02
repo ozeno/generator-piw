@@ -6,7 +6,8 @@ const path = require('path')
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts)
-        this.name = this.args[0]// .replace(/\s/g, '')
+        this.name = this.args[0]
+        this.name = this.name[0].toUpperCase() + this.name.slice(1) // Capitalize
     }
 
     writing() {
@@ -39,8 +40,8 @@ module.exports = class extends Generator {
 
     _copyTests() {
         let f = 'service.spec.js'
-        this._cp(f, `src/e2e/services/${this.name}.${f}`, { name: this.name, type: ' e2e' })
-        this._cp(f, `src/tests/services/${this.name}.${f}`, { name: this.name, type: '' })
+        this._cp(f, `test/e2e/services/${this.name}.${f}`, { name: this.name, type: ' e2e' })
+        this._cp(f, `test/unit/services/${this.name}.${f}`, { name: this.name, type: ' unit' })
     }
 
     _addImport(name, dest, type) {

@@ -12,8 +12,8 @@ module.exports = class extends Generator {
     writing() {
         this.name || this._err('usage: "yo piw:component <name>"')
 
-        this._copy(['component.js', 'template.html'], { name: this.name })
-        this.config.get('testing') && this._copyTests()
+        this._copy(['controller.js', 'component.js', 'template.html'], { name: this.name })
+        this.config.get('testing') && this._copyTests(['component.spec.js', 'controller.spec.js'])
 
         this._addImport(this.name, `./modules/${this.name}/${this.name}.component`, 'component')
 
@@ -42,10 +42,11 @@ module.exports = class extends Generator {
         })
     }
 
-    _copyTests() {
-        let f = 'component.spec.js'
-        this._cp(f, `src/e2e/${this.name}/${this.name}.${f}`, { name: this.name, type: ' e2e' })
-        this._cp(f, `src/tests/${this.name}/${this.name}.${f}`, { name: this.name, type: '' })
+    _copyTests(files) {
+        files.forEach(f => {
+            this._cp(f, `test/e2e/${this.name}/${this.name}.${f}`, { name: this.name, type: ' e2e' })
+            this._cp(f, `test/unit/${this.name}/${this.name}.${f}`, { name: this.name, type: ' unit' })
+        })
     }
 
     _addImport(name, dest, type) {

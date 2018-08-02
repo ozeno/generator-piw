@@ -49,8 +49,8 @@ module.exports = class extends Generator {
             "style-loader@0.21.0"
         ]
 
-        this.npmInstall(deps, {}, { cwd: 'src' })
-        this.npmInstall(devDeps, { 'save-dev': true }, { cwd: 'src' })
+        this.npmInstall(deps)
+        this.npmInstall(devDeps, { 'save-dev': true })
     }
 
     _css() {
