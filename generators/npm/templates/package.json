@@ -4,7 +4,6 @@
         "build:prod": "webpack --config .config/webpack.config.js --env=prod --progress --profile --colors",
         "e2e": "protractor .config/protractor.conf.js",
         "pree2e": "webdriver-manager update",
-        "s": "concurrently \"webpack --watch --config .config/webpack.config.js\" 'lite-server'",
         "start": "webpack-dev-server --config ./.config/webpack.config.js --env=dev --content-base dist/",
         "test": "karma start .config/karma.conf.js"
     },
@@ -22,7 +21,6 @@
         "extract-text-webpack-plugin": "^2.1.2",
         "html-loader": "^0.5.5",
         "html-webpack-plugin": "^3.2.0",
-        "lite-server": "^2.4.0",
         "raw-loader": "^0.5.1",
         "source-map-loader": "^0.2.3",
         "url-loader": "^1.0.1",
