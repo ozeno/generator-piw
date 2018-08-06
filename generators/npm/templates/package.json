@@ -4,8 +4,9 @@
         "build:prod": "webpack --config .config/webpack.config.js --env=prod --progress --profile --colors",
         "e2e": "protractor .config/protractor.conf.js",
         "pree2e": "webdriver-manager update",
-        "start": "webpack-dev-server --config ./.config/webpack.config.js --env=dev --content-base dist/",
-        "test": "karma start .config/karma.conf.js"
+        "start": "webpack-dev-server --config ./.config/webpack.config.js",
+        "test:dev": "karma start .config/karma.conf.js --browsers PhantomJS",
+		"test:prod": "karma start .config/karma.conf.js --reporters teamcity --single-run --browsers PhantomJS --colors true"
     },
     "dependencies": {
         "angular": "^1.7.2",
