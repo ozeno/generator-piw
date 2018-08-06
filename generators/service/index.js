@@ -7,11 +7,11 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts)
         this.name = this.args[0]
+        this.name || this._err('usage: "yo piw:service <name>"')
         this.name = this.name[0].toUpperCase() + this.name.slice(1) // Capitalize
     }
 
     writing() {
-        this.name || this._err('usage: "yo piw:service <name>"')
 
         this._copy(['service.js'], { name: this.name })
         this.config.get('testing') && this._copyTests()

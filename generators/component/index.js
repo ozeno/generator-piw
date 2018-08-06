@@ -7,11 +7,10 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts)
         this.name = this.args[0]
+        this.name || this._err('usage: "yo piw:component <name>"')
     }
 
     writing() {
-        this.name || this._err('usage: "yo piw:component <name>"')
-
         this._copy(['controller.js', 'component.js', 'template.html'], { name: this.name })
         this.config.get('testing') && this._copyTests(['component.spec.js', 'controller.spec.js'])
 
