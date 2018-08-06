@@ -13,7 +13,7 @@ const babelOptions = {
 	plugins: ["angularjs-annotate", "transform-remove-strict-mode"]
 };
 
-module.exports = function () {
+module.exports = function (env) {
 	return {
 		context: path.resolve(__dirname, ".."),
 		stats: {
@@ -38,65 +38,65 @@ module.exports = function () {
 		},
 		module: {
 			rules: [{
-					enforce: 'pre',
-					test: /\.js$/,
-					exclude: '/node_modules/',
-					loader: "source-map-loader"
-				},
-				{
-					test: /\.html$/,
-					use: [{
-						loader: 'raw-loader'
+				enforce: 'pre',
+				test: /\.js$/,
+				exclude: '/node_modules/',
+				loader: "source-map-loader"
+			},
+			{
+				test: /\.html$/,
+				use: [{
+					loader: 'raw-loader'
+				}],
+			},
+			{
+				test: /\.(gif|png|jpe?g|svg)$/i,
+				loaders: [
+					'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
+				]
+			},
+			{
+				test: /\.(eot|woff|woff2|ttf)$/,
+				loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
+			},
+			{
+				test: /\.css$/i,
+				exclude: '/node_modules/',
+				loader: extractCSS.extract({
+					fallback: [{
+						loader: 'style-loader',
 					}],
-				},
-				{
-					test: /\.(gif|png|jpe?g|svg)$/i,
-					loaders: [
-						'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
-					]
-				},
-				{
-					test: /\.(eot|woff|woff2|ttf)$/,
-					loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
-				},
-				{
-					test: /\.css$/i,
-					exclude: '/node_modules/',
-					loader: extractCSS.extract({
-						fallback: [{
-							loader: 'style-loader',
-						}],
-						use: [{
-							loader: "css-loader"
-						}]
-					})
-				},
-				{
-					test: /\.less$/i,
-					exclude: '/node_modules/',
-					loader: extractLESS.extract({
-						fallback: [{
-							loader: 'style-loader',
-						}],
-						use: [{
-								loader: "css-loader"
-							},
-							{
-								loader: "less-loader"
-							}
-						]
-					})
-				},
-				{
-					test: /\.js$/,
-					exclude: [
-						/node_modules/
-					],
 					use: [{
-						loader: 'babel-loader?cacheDirectory',
-						options: babelOptions
+						loader: "css-loader"
 					}]
-				}
+				})
+			},
+			{
+				test: /\.less$/i,
+				exclude: '/node_modules/',
+				loader: extractLESS.extract({
+					fallback: [{
+						loader: 'style-loader',
+					}],
+					use: [{
+						loader: "css-loader"
+					},
+					{
+						loader: "less-loader"
+					}
+					]
+				})
+			},
+			{
+				test: /\.js$/,
+				exclude: [
+					/node_modules/
+				],
+				use: [{
+					loader: 'babel-loader?cacheDirectory',
+					options: babelOptions
+				}]
+			}
 			]
 		},
 		plugins: [
