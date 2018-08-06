@@ -9,18 +9,17 @@ module.exports = class extends Generator {
 
     writing() {
         this._copy()
-        this.log('*** Run "webdriver-manager start" before starting e2e testing...')
     }
 
     install() {
         const deps = [
-            "jasmine-core@3.0.0",
-            "karma",
+            "jasmine-core@3",
+            "karma@2",
             "karma-chrome-launcher",
             "karma-jasmine",
             "karma-sourcemap-loader",
             "karma-webpack",
-            "protractor"
+            "protractor@5"
         ]
 
         this.npmInstall(deps, { 'save-dev': true })

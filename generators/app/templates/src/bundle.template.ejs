@@ -6,7 +6,8 @@
     <title><%= name %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="dist/bundle.js"></script>
+    <%% for (var css in htmlWebpackPlugin.files.css) { %><link href="<%%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet"><%% } %>
+    <%% for (var chunk in htmlWebpackPlugin.files.chunks) { %><script src="<%%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script><%% } %>
 </head>
 
 <body>
