@@ -28,6 +28,10 @@ module.exports = class extends Generator {
             "karma-phantomjs-launcher@1",
             "karma-phantomjs-shim@1",
             "karma-teamcity-reporter@1",
+            "karma-spec-reporter",
+            "karma-coverage",
+            "karma-helpful-reporter",
+            "karma-summary-reporter",
             "protractor@5"
         ]
 

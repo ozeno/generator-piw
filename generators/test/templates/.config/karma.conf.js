@@ -13,7 +13,11 @@ module.exports = function (config) {
       'karma-firefox-launcher',
       'karma-phantomjs-launcher',
       'karma-ng-html2js-preprocessor',
-      'karma-babel-preprocessor'
+      'karma-babel-preprocessor',
+      'karma-spec-reporter',
+      'karma-coverage',
+      'karma-helpful-reporter',
+      'karma-summary-reporter'
     ],
     files: [
       '../src/app/app.module.js',
@@ -68,6 +72,50 @@ module.exports = function (config) {
           }
         }
       }
+    },
+    reporters: ['helpful', 'coverage'],
+    helpfulReporter: {
+      animationStyle: 'braille',
+      clearScreenBeforeEveryRun: false,
+      hideBrowser: false,
+      maxLogLines: 42,
+      removeLinesContaining: [],
+      removeTail: false,
+      renderOnRunCompleteOnly: false,
+      suppressErrorReport: false,
+      underlineFileType: '',
+      colorBrowser: 205,
+      colorConsoleLogs: 45,
+      colorFail: 9,
+      colorFirstLine: 211,
+      colorLoggedErrors: 250,
+      colorPass: 10,
+      colorSkip: 11,
+      colorTestName: 199,
+      colorUnderline: 254,
+    },
+    coverageReporter: {
+      type: 'text-summary',
+      instrumenterOptions: {
+        istanbul: { noCompact: true }
+      }
+    },
+    summaryReporter: {
+      // 'failed', 'skipped' or 'all'
+      show: 'failed',
+      // Limit the spec label to this length
+      specLength: 50,
+      // Show an 'all' column as a summary
+      overviewColumn: true
+    },
+    specReporter: {
+      maxLogLines: 10,             // limit number of lines logged per test
+      suppressErrorSummary: false, // do not print error summary
+      suppressFailed: false,      // do not print information about failed tests
+      suppressPassed: false,      // do not print information about passed tests
+      suppressSkipped: true,      // do not print information about skipped tests
+      showSpecTiming: true,      // print the time elapsed for each spec
+      failFast: false              // test would finish with error when a first fail occurs.
     }
   })
 }
