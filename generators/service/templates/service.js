@@ -1,7 +1,7 @@
 class <%= name %>Service {
-    constructor() {
-        "ngInject"
-    }
+	constructor () {
+		'ngInject';
+	}
 }
 
-export default <%= name %>Service
+export default <%= name %>Service;

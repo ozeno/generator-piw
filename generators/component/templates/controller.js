@@ -1,7 +1,7 @@
 class <%= name %>Ctrl {
-    constructor() {
-        "ngInject"
-    }
+	constructor () {
+		'ngInject';
+	}
 }
 
-export default <%= name %>Ctrl
+export default <%= name %>Ctrl;

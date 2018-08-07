@@ -46,6 +46,7 @@ module.exports = class extends Generator {
         this.props.fa && this.composeWith("piw:fa", {})
         this.config.set('fa', this.props.fa)
 
+        this.composeWith("piw:eslint", {})
         this.composeWith("piw:npm", {})
         this.composeWith("piw:webpack", {})
         this.composeWith("piw:component", { arguments: [this.props.name] })

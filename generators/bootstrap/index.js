@@ -72,13 +72,13 @@ module.exports = class extends Generator {
 
     _addSimpleImport(toImport) {
         let data = this.fs.read(this._destinationPath('src/app/app.module.js'))
-        data = `${data}\n\nimport "${toImport}"`
+        data = `${data}\n\nimport "${toImport}";`
         this.fs.write(this._destinationPath('src/app/app.module.js'), data)
     }
 
     _addImport(name, dest) {
         let data = this.fs.read(this._destinationPath('src/app/app.module.js'))
-        data = `${data}\nimport ${name} from "${dest}"\napp.requires.push(${name})`
+        data = `${data}\nimport ${name} from "${dest}";\napp.requires.push(${name});`
         this.fs.write(this._destinationPath('src/app/app.module.js'), data)
     }
 
