@@ -1,7 +1,6 @@
 'use strict'
 
 const Generator = require('yeoman-generator')
-const path = require('path')
 const to = require('to-case')
 
 module.exports = class extends Generator {
@@ -51,13 +50,9 @@ module.exports = class extends Generator {
     }
 
     _addImport(name, dest, type) {
-        let data = this.fs.read(this._destinationPath('src/app/app.module.js'))
+        let data = this.fs.read(this.destinationPath('src/app/app.module.js'))
         // data = `import ${name} from "${dest}";\n${data}\n\t.${type}("${name}", ${name})`
         data = `${data}\n\nimport ${name} from "${dest}";\napp.${type}("${name}", ${name});`
-        this.fs.write(this._destinationPath('src/app/app.module.js'), data)
-    }
-
-    _destinationPath(dest) {
-        return path.join(this.destinationRoot(), dest)
+        this.fs.write(this.destinationPath('src/app/app.module.js'), data)
     }
 }
