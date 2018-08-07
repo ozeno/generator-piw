@@ -51,7 +51,6 @@ module.exports = class extends Generator {
 
     _addImport(name, dest, type) {
         let data = this.fs.read(this.destinationPath('src/app/app.module.js'))
-        // data = `import ${name} from "${dest}";\n${data}\n\t.${type}("${name}", ${name})`
         data = `${data}\n\nimport ${name} from "${dest}";\napp.${type}("${name}", ${name});`
         this.fs.write(this.destinationPath('src/app/app.module.js'), data)
     }
