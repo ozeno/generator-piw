@@ -2,23 +2,25 @@
 
 const Generator = require('yeoman-generator')
 const path = require('path')
+const to = require('to-case')
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts)
         this.name = this.args[0]
         this.name || this._err('usage: "yo piw:component <name>"')
+        this.nameSlug = to.slug(this.name)
     }
 
     writing() {
-        this._copy(['controller.js', 'component.js', 'template.html'], { name: this.name })
+        this._copy(['controller.js', 'component.js', 'template.html'], { name: this.name, nameSlug: this.nameSlug })
         this.config.get('testing') && this._copyTests(['component.spec.js', 'controller.spec.js'])
 
-        this._addImport(this.name, `./modules/${this.name}/${this.name}.component`, 'component')
+        this._addImport(this.name, `./modules/${this.nameSlug}/${this.nameSlug}.component`, 'component')
 
         this.log(`
         .when('/${this.name}', {
-            template: '<${this.name}></${this.name}>'
+            template: '<${this.nameSlug}></${this.nameSlug}>'
         })`)
     }
 
@@ -37,14 +39,14 @@ module.exports = class extends Generator {
 
     _copy(files, options) {
         files.forEach(f => {
-            this._cp(f, `src/app/modules/${this.name}/${this.name}.${f}`, options)
+            this._cp(f, `src/app/modules/${this.nameSlug}/${this.nameSlug}.${f}`, options)
         })
     }
 
     _copyTests(files) {
         files.forEach(f => {
-            this._cp(f, `test/e2e/${this.name}/${this.name}.${f}`, { name: this.name, type: ' e2e' })
-            this._cp(f, `test/unit/${this.name}/${this.name}.${f}`, { name: this.name, type: ' unit' })
+            this._cp(f, `test/e2e/${this.nameSlug}/${this.nameSlug}.${f}`, { name: this.name, type: ' e2e' })
+            this._cp(f, `test/unit/${this.nameSlug}/${this.nameSlug}.${f}`, { name: this.name, type: ' unit' })
         })
     }
 
