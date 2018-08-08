@@ -23,6 +23,11 @@ module.exports = class extends Generator {
                 message: 'Would you like to enable Font Awesome?',
                 default: true
             }, {
+                type: 'list',
+                name: 'ext',
+                message: 'Which language do you want to use?',
+                choices: ['js', 'ts']
+            }, {
                 type: 'confirm',
                 name: 'bootstrap',
                 message: 'Would you like to enable Bootstrap?',
@@ -35,7 +40,10 @@ module.exports = class extends Generator {
     }
 
     writing() {
-        this._copy()
+        this._copy(this.props.ext)
+
+        this.props.ext === 'ts' && this.composeWith("piw:ts", {})
+        this.config.set('ext', this.props.ext)
 
         this.props.test && this.composeWith("piw:test", {})
         this.config.set('testing', this.props.test)
@@ -46,15 +54,16 @@ module.exports = class extends Generator {
         this.props.fa && this.composeWith("piw:fa", {})
         this.config.set('fa', this.props.fa)
 
-        this.composeWith("piw:eslint", {})
+        this.props.ext === 'js' && this.composeWith("piw:eslint", {})
+
         this.composeWith("piw:npm", {})
         this.composeWith("piw:webpack", {})
         this.composeWith("piw:component", { arguments: [this.props.name] })
     }
 
-    _copy() {
+    _copy(ext) {
         this.fs.copyTpl(
-            this.templatePath(''),
+            this.templatePath(ext),
             this.destinationPath(''),
             { message: 'Hello! from ', name: this.props.name, date: new Date().toISOString().slice(0, 10) }
         )

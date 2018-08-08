@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "module": "ES6"
+    },
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

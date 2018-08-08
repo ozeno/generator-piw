@@ -20,7 +20,7 @@ module.exports = function (config) {
       'karma-summary-reporter'
     ],
     files: [
-      '../src/app/app.module.js',
+      '../src/app/app.module.<%= ext %>',
       '../node_modules/angular-mocks/angular-mocks.js',
       '../test/unit/*spec.js',
       '../test/unit/**/*spec.js'
@@ -38,7 +38,7 @@ module.exports = function (config) {
 
     webpack: webpackConfig('prod'),
     preprocessors: {
-      '../src/app/app.module.js': ['webpack', 'babel'],
+      '../src/app/app.module.<%= ext %>': ['webpack', 'babel'],
       '../test/unit/*spec.js': ['webpack', 'babel'],
       '../test/unit/**/*spec.js': ['webpack', 'babel']
     },

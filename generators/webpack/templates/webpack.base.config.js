@@ -25,7 +25,7 @@ module.exports = function (env) {
 			maxModules: 55,
 		},
 		entry: {
-			"app": ['./src/app/app.module.js']
+			"app": ['./src/app/app.module.<%= ext %>']
 		},
 		output: {
 			path: path.resolve(__dirname, '../dist'),
@@ -35,7 +35,7 @@ module.exports = function (env) {
 			alias: {
 				jquery: "jquery/src/jquery"
 			},
-			extensions: ['.js', '.css', '.less', '.html'],
+			extensions: ['.ts', '.tsx', '.js', '.css', '.less', '.html']
 		},
 		module: {
 			rules: [{
@@ -97,6 +97,10 @@ module.exports = function (env) {
 					loader: 'babel-loader?cacheDirectory',
 					options: babelOptions
 				}]
+			},
+			{
+				test: /\.tsx?$/,
+				loader: "ts-loader"
 			}
 			]
 		},

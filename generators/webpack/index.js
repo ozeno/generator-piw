@@ -4,12 +4,14 @@ const Generator = require('yeoman-generator')
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts)
+        this.ext = this.config.get('ext')
     }
 
     writing() {
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath(''),
-            this.destinationPath('.config/')
+            this.destinationPath('.config/'),
+            { ext: this.ext }
         )
         this.fs.copy(
             this.templatePath('.*'),

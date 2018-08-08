@@ -6,6 +6,7 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts)
         this.config.set('bootstrap', true)
+        this.ext = this.config.get('ext')
     }
 
     propmting() {
@@ -70,14 +71,15 @@ module.exports = class extends Generator {
     }
 
     _addSimpleImport(toImport) {
-        let data = this.fs.read(this.destinationPath('src/app/app.module.js'))
+        let data = this.fs.read(this.destinationPath('src/app/app.module.' + this.ext))
         data = `${data}\n\nimport "${toImport}";`
-        this.fs.write(this.destinationPath('src/app/app.module.js'), data)
+        this.fs.write(this.destinationPath('src/app/app.module.' + this.ext), data)
     }
 
     _addImport(name, dest) {
-        let data = this.fs.read(this.destinationPath('src/app/app.module.js'))
-        data = `${data}\nimport ${name} from "${dest}";\napp.requires.push(${name});`
-        this.fs.write(this.destinationPath('src/app/app.module.js'), data)
+        let data = this.fs.read(this.destinationPath('src/app/app.module.' + this.ext))
+        if (this.ext === 'js') data = `${data}\nimport ${name} from "${dest}";\napp.requires.push(${name});`
+        if (this.ext === 'ts') data = `${data}\nimport * as ${name} from "${dest}";\napp.requires.push(String(${name}));`
+        this.fs.write(this.destinationPath('src/app/app.module.' + this.ext), data)
     }
 }

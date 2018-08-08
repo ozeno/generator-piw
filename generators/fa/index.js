@@ -6,6 +6,7 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts)
         this.config.set('fa', true)
+        this.ext = this.config.get('ext')
     }
 
     default() {
@@ -17,8 +18,8 @@ module.exports = class extends Generator {
     }
 
     _addSimpleImport(toImport) {
-        let data = this.fs.read(this.destinationPath('src/app/app.module.js'))
+        let data = this.fs.read(this.destinationPath('src/app/app.module.' + this.ext))
         data = `${data}\n\nimport "${toImport}";`
-        this.fs.write(this.destinationPath('src/app/app.module.js'), data)
+        this.fs.write(this.destinationPath('src/app/app.module.' + this.ext), data)
     }
 }

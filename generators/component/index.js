@@ -9,6 +9,7 @@ module.exports = class extends Generator {
         this.name = this.args[0]
         this.name || this._err('usage: "yo piw:component <name>"')
         this.nameSlug = to.slug(this.name)
+        this.ext = this.config.get('ext')
     }
 
     writing() {
@@ -38,7 +39,13 @@ module.exports = class extends Generator {
 
     _copy(files, options) {
         files.forEach(f => {
-            this._cp(f, `src/app/modules/${this.nameSlug}/${this.nameSlug}.${f}`, options)
+            let ff
+            if (f.slice(-2) === 'js') { 
+                ff = f.slice(0, -2) + this.ext
+            } else {
+                ff = f
+            }
+            this._cp(f, `src/app/modules/${this.nameSlug}/${this.nameSlug}.${ff}`, options)
         })
     }
 
@@ -50,8 +57,8 @@ module.exports = class extends Generator {
     }
 
     _addImport(name, dest, type) {
-        let data = this.fs.read(this.destinationPath('src/app/app.module.js'))
+        let data = this.fs.read(this.destinationPath('src/app/app.module.' + this.ext))
         data = `${data}\n\nimport ${name} from "${dest}";\napp.${type}("${name}", ${name});`
-        this.fs.write(this.destinationPath('src/app/app.module.js'), data)
+        this.fs.write(this.destinationPath('src/app/app.module.' + this.ext), data)
     }
 }

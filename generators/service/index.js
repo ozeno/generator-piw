@@ -10,6 +10,7 @@ module.exports = class extends Generator {
         this.name || this._err('usage: "yo piw:service <name>"')
         this.name = this.name[0].toUpperCase() + this.name.slice(1) // Capitalize
         this.nameSlug = to.slug(this.name)
+        this.ext = this.config.get('ext')
     }
 
     writing() {
@@ -46,8 +47,8 @@ module.exports = class extends Generator {
     }
 
     _addImport(name, dest, type) {
-        let data = this.fs.read(this.destinationPath('src/app/app.module.js'))
+        let data = this.fs.read(this.destinationPath('src/app/app.module.' + this.ext))
         data = `${data}\n\nimport ${name} from "${dest}";\napp.${type}("${name}", ${name});`
-        this.fs.write(this.destinationPath('src/app/app.module.js'), data)
+        this.fs.write(this.destinationPath('src/app/app.module.' + this.ext), data)
     }
 }
