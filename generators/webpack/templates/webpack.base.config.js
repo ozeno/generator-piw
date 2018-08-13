@@ -1,18 +1,16 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const extractCSS = new ExtractTextPlugin({
+const extractCSS = new MiniCssExtractPlugin({
 	filename: '[name].css'
 });
-const extractLESS = new ExtractTextPlugin({
+const extractLESS = new MiniCssExtractPlugin({
 	filename: '[name].bundle-less.css'
 });
-const babelOptions = {
-	presets: ['es2015'],
-	plugins: ["angularjs-annotate", "transform-remove-strict-mode"]
-};
-
+<%if (ext === 'ts') { %>
+const { CheckerPlugin } = require('awesome-typescript-loader');
+<% } %>
 module.exports = function (env) {
 	console.log('env: ', env);
 	return {
@@ -63,30 +61,29 @@ module.exports = function (env) {
 			{
 				test: /\.css$/i,
 				exclude: '/node_modules/',
-				loader: extractCSS.extract({
-					fallback: [{
-						loader: 'style-loader',
-					}],
-					use: [{
-						loader: "css-loader"
-					}]
-				})
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							publicPath: '../'
+						}
+					},
+					"css-loader"
+				]
 			},
 			{
 				test: /\.less$/i,
 				exclude: '/node_modules/',
-				loader: extractLESS.extract({
-					fallback: [{
-						loader: 'style-loader',
-					}],
-					use: [{
-						loader: "css-loader"
-					},
+				use: [
 					{
-						loader: "less-loader"
-					}
-					]
-				})
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							publicPath: '../'
+						}
+					},
+					"css-loader",
+					"less-loader"
+				]
 			},
 			{
 				test: /\.js$/,
@@ -94,14 +91,24 @@ module.exports = function (env) {
 					/node_modules/
 				],
 				use: [{
-					loader: 'babel-loader?cacheDirectory',
-					options: babelOptions
+					loader: 'babel-loader?cacheDirectory'
 				}]
 			},
+			<%if (ext === 'ts') { %>
 			{
-				test: /\.tsx?$/,
-				loader: "ts-loader"
+				test: /\.tsx$/,
+				exclude: /node_modules/,
+				use: [{
+					loader: 'awesome-typescript-loader',
+					options: {
+						useBabel: true,
+						query: {
+							declaration: false,
+						}
+					},
+				}],
 			}
+			<% } %>
 			]
 		},
 		plugins: [
@@ -117,7 +124,10 @@ module.exports = function (env) {
 				template: './src/bundle.template.ejs'
 			}),
 			extractCSS,
-			extractLESS
+			extractLESS,
+			<%if (ext === 'ts') { %>
+			new CheckerPlugin()
+			<% } %>
 		]
 	};
 };

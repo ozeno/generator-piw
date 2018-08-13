@@ -2,6 +2,9 @@
     "compilerOptions": {
         "module": "ES6"
     },
+    "awesomeTypescriptLoaderOptions": {
+        "useBabel": true
+    },
     "exclude": [
         "node_modules",
         "**/*.spec.ts"

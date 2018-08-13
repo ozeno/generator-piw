@@ -1,4 +1,4 @@
 {
     "presets": [ "es2015" ],
-    "plugins": [ "angularjs-annotate" ]
+    "plugins": [ "angularjs-annotate", "transform-remove-strict-mode" ]
 }

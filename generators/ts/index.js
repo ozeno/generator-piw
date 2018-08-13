@@ -17,7 +17,7 @@ module.exports = class extends Generator {
         const deps = [
             "@types/angular@1",
             "@types/angular-route@1",
-            "ts-loader@3",
+            "awesome-typescript-loader@5",
             "typescript@3",
         ]
 

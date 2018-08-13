@@ -1,7 +1,6 @@
 function buildConfig(env) {
-	if (env == undefined) {
-		env = 'dev';
-	}
+	console.log(env)
+	env = env || 'dev'
 	return require('./webpack.' + env + '.config.js')(env);
 }
 
