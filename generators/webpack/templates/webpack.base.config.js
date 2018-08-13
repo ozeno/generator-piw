@@ -8,9 +8,6 @@ const extractCSS = new MiniCssExtractPlugin({
 const extractLESS = new MiniCssExtractPlugin({
 	filename: '[name].bundle-less.css'
 });
-<%if (ext === 'ts') { %>
-const { CheckerPlugin } = require('awesome-typescript-loader');
-<% } %>
 module.exports = function (env) {
 	console.log('env: ', env);
 	return {
@@ -96,17 +93,17 @@ module.exports = function (env) {
 			},
 			<%if (ext === 'ts') { %>
 			{
-				test: /\.tsx$/,
+				test: /\.ts$/,
 				exclude: /node_modules/,
-				use: [{
-					loader: 'awesome-typescript-loader',
-					options: {
-						useBabel: true,
-						query: {
-							declaration: false,
-						}
+				use: [
+					{
+						loader: 'ng-annotate-loader',
+						options: {
+							ngAnnotate: 'ng-annotate-patched'
+						},
 					},
-				}],
+					'ts-loader'
+				]
 			}
 			<% } %>
 			]
@@ -124,10 +121,7 @@ module.exports = function (env) {
 				template: './src/bundle.template.ejs'
 			}),
 			extractCSS,
-			extractLESS,
-			<%if (ext === 'ts') { %>
-			new CheckerPlugin()
-			<% } %>
+			extractLESS
 		]
 	};
 };

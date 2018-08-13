@@ -1,6 +1,6 @@
 /* eslint-disable */
-routes.$inject = ["$locationProvider", "$routeProvider"]
 export default function routes ($locationProvider, $routeProvider) {
+	'ngInject';
 	$locationProvider.hashPrefix('!');
 
 	$routeProvider
