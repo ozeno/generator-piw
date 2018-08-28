@@ -44,7 +44,7 @@ module.exports = class extends Generator {
             this.destinationPath('')
         )
 
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('.config'),
             this.destinationPath('.config')
         )
