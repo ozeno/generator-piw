@@ -1,6 +1,6 @@
 {
   "name": "generator-piw",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "A yeoman generator for piworks",
   "keywords": [
     "yeoman-generator",
